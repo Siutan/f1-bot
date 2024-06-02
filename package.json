@@ -1,0 +1,30 @@
+{
+  "name": "f1-bot",
+  "module": "index.ts",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "bun index.ts",
+    "dev": "bun --watch index.ts",
+    "commands": "bun ./commandsDeploy.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/ical": "^0.8.3",
+    "@types/node": "^20.13.0",
+    "@types/validator": "^13.11.10",
+    "discord.js": "^14.15.2",
+    "ical": "^0.8.0",
+    "node-ical": "^0.18.0",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-typescript": "^2.1.6",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
+  }
+}
