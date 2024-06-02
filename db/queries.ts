@@ -39,7 +39,7 @@ export default {
       .getMany();
 
     // Return the race details and the next event
-    return { nextRace: nextEvent.race, nextEvent, events };
+    return { nextRace: nextEvent.race, events };
   },
   // event queries
   getEvent: async (db: DataSource, id: string) => {

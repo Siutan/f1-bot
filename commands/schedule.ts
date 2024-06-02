@@ -1,9 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import queries from "../db/queries";
 import { db } from "../db/dbInit";
-import { channel } from "diagnostics_channel";
 
-const scheduleEmbed = new EmbedBuilder().setColor(0x0099ff);
+const scheduleEmbed = new EmbedBuilder();
 
 const pickEmoji = (label: string) => {
   label = label.toLowerCase();
@@ -28,6 +27,12 @@ const formatDate = (date: Date) => {
   })}`;
 };
 
+const isSprintWeekend = (events: Event[]) => {
+  return events.some((event) => {
+    return event.type.includes("sprint");
+  });
+};
+
 export default {
   data: new SlashCommandBuilder()
     .setName("schedule")
@@ -41,20 +46,24 @@ export default {
 
     scheduleEmbed.setTitle(`The ${race.nextRace.summary} full schedule:`);
 
+    // casting the events as any as Event[] to satisfy the type checker, we know that it's an array of Event
+    if (isSprintWeekend(race.events as any as Event[])) {
+      scheduleEmbed.setDescription("This is a sprint weekend!");
+    }
+
     for (const event of race.events) {
       scheduleEmbed.addFields({
-        name:
-          "" +
-          " " +
-          `${pickEmoji(event.type)}` +
-          " " +
-          event.type +
-          " ` " +
-          `${formatDate(event.startTime)}` +
-          " ` ",
-        value: " ",
+        name: `**${pickEmoji(event.type)} ${event.type} \`${formatDate(
+          event.startTime
+        )}\`**`,
+        value: "\u200B", // Non-breaking space for empty value
       });
     }
+	
+    scheduleEmbed.setThumbnail(
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
+    );
+    scheduleEmbed.setColor("#f50000");
 
     interaction.reply({ embeds: [scheduleEmbed] });
   },
