@@ -8,6 +8,7 @@
     "commands": "bun ./commandsDeploy.ts"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "latest",
     "@types/bun": "latest"
   },
   "peerDependencies": {

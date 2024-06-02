@@ -1,7 +1,15 @@
 import { REST, Routes } from "discord.js";
-import { clientId, guildId, token } from "./config.json";
 import { readdir } from "node:fs/promises";
 import { parseArgs } from "util";
+
+const token = process.env.BOT_TOKEN;
+const clientId = process.env.CLIENT_ID;
+const guildId = process.env.GUILD_ID;
+
+if (!token || !clientId || !guildId) {
+  console.error("Missing environment variables");
+  process.exit(1);
+}
 
 let args: { global?: boolean } = {};
 try {

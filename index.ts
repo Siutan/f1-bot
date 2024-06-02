@@ -1,8 +1,8 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import { commandHolder, registerCommands } from "./commandsUtility";
-import { token } from "./config.json";
 import { getEvents } from "./utils/calenderParser";
 import { db } from "./db/dbInit";
+const token = process.env.BOT_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 db.initialize()
