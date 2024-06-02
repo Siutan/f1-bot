@@ -3,11 +3,15 @@ A Discord bot made out of frustration that another f1 bot we were using, wasn't 
 
 ## Commands
 
- - **/schedule**
+ - [x] **/schedule**
 	 - Gets the next upcoming race details for the weekend. This includes the date, time, and location of the race.
- - **/remind [time] [event]**
+ - [x] **/tracks**
+	 - Gets all the tracks in the calender along with the id.
+ - [x] **/track :id or :location**
+	 - Gets details about the specified track using id, or if location is used, try to infer the track from the location string.
+ - [ ] **/remind [time] [event]**
 	 - Sets a reminder for a specified number of minutes before the specified event. For example, `/remind 30 Qualifying` will remind you 30 minutes before the qualifying session.
- - **/predict [winner]**
+ - [ ] **/predict [winner]**
 	 - Takes a driver name and adds it to the prediction pool. If your predicted driver wins, you earn points!
 
 *Note: The `remind` and `predict` commands are currently under development and will be available in future updates.*

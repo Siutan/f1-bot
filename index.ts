@@ -2,13 +2,19 @@ import { Client, Events, GatewayIntentBits } from "discord.js";
 import { commandHolder, registerCommands } from "./commandsUtility";
 import { getEvents } from "./utils/calenderParser";
 import { db } from "./db/dbInit";
+
+// listen for process exit, this is mainly for debugging
+process.on("exit", (code) => {
+  console.log("Exiting with code:", code);
+});
+
 const token = process.env.BOT_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 db.initialize()
   .then(() => {
     registerCommands();
-    getEvents(db);
+    getEvents();
 
     client.on(Events.InteractionCreate, async (interaction) => {
       if (!interaction.isChatInputCommand()) return;

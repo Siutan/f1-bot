@@ -1,7 +1,7 @@
 import ical from "node-ical";
 import { Race } from "../db/entities/race";
 import { Event } from "../db/entities/event";
-import type { DataSource } from "typeorm";
+import { db } from "../db/dbInit";
 
 const path = "./F1-2024.ics";
 const file = Bun.file(path);
@@ -38,7 +38,7 @@ interface IProcessedEvent {
   }[];
 }
 
-export const getEvents = (db: DataSource) => {
+export const getEvents = () => {
   const events = ical.sync.parseICS(text);
   if (!events) {
     console.error("No events found");
@@ -61,7 +61,7 @@ export const getEvents = (db: DataSource) => {
       (e) => e.location === location
     );
     const processedEvents = processRaceEvents(raceEvents);
-    storeRaceData(processedEvents, db).catch(console.error);
+    storeRaceData(processedEvents).catch(console.error);
   });
 };
 
@@ -87,7 +87,7 @@ function processRaceEvents(events: IEvent[]): IProcessedEvent {
   };
 }
 
-const storeRaceData = async (data: IProcessedEvent, db: DataSource) => {
+const storeRaceData = async (data: IProcessedEvent) => {
   if (!data) {
     console.error("No data found");
     return;

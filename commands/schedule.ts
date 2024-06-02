@@ -1,33 +1,13 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import queries from "../db/queries";
 import { db } from "../db/dbInit";
+import {
+  pickEmoji,
+  toDiscordTime,
+  isSprintWeekend,
+} from "../utils/commandUtils";
 
 const scheduleEmbed = new EmbedBuilder();
-
-const pickEmoji = (label: string) => {
-  label = label.toLowerCase();
-  if (label.includes("fp")) {
-    return "🚦";
-  } else if (label.includes("qualifying")) {
-    return "⏱";
-  } else if (label.includes("grand prix")) {
-    return "🏁";
-  } else {
-    return "🚦";
-  }
-};
-
-const formatDate = (date: Date) => {
-  // convert to epoch
-  const epoch = Math.floor(date.getTime() / 1000);
-  return `<t:${epoch}:f>`;
-};
-
-const isSprintWeekend = (events: Event[]) => {
-  return events.some((event) => {
-    return event.type.includes("sprint");
-  });
-};
 
 export default {
   data: new SlashCommandBuilder()
@@ -36,7 +16,7 @@ export default {
   async execute(interaction: any) {
     const race = await queries.getNextRace(db);
     if (!race) {
-      interaction.reply("No upcoming races found.");
+      interaction.reply("No upcoming races found.", { ephemeral: true });
       return;
     }
 
@@ -49,7 +29,7 @@ export default {
 
     for (const event of race.events) {
       scheduleEmbed.addFields({
-        name: `${pickEmoji(event.type)} **${event.type}** ${formatDate(
+        name: `${pickEmoji(event.type)} **${event.type}** ${toDiscordTime(
           event.startTime
         )}`,
         value: "\u200B", // Non-breaking space for empty value
