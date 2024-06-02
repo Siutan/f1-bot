@@ -7,8 +7,6 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 db.initialize()
   .then(() => {
-    // here you can start to work with your database
-    console.log("Database initialized", __dirname);
     registerCommands();
     getEvents(db);
 

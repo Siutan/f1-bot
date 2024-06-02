@@ -18,13 +18,9 @@ const pickEmoji = (label: string) => {
 };
 
 const formatDate = (date: Date) => {
-  return `${date.toLocaleString("en-US", {
-    month: "long",
-  })} ${date.getDate()}, ${date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  })}`;
+  // convert to epoch
+  const epoch = Math.floor(date.getTime() / 1000);
+  return `<t:${epoch}:f>`;
 };
 
 const isSprintWeekend = (events: Event[]) => {
@@ -53,13 +49,13 @@ export default {
 
     for (const event of race.events) {
       scheduleEmbed.addFields({
-        name: `**${pickEmoji(event.type)} ${event.type} \`${formatDate(
+        name: `${pickEmoji(event.type)} **${event.type}** ${formatDate(
           event.startTime
-        )}\`**`,
+        )}`,
         value: "\u200B", // Non-breaking space for empty value
       });
     }
-	
+
     scheduleEmbed.setThumbnail(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
     );
