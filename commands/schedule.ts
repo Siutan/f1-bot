@@ -7,8 +7,6 @@ import {
   isSprintWeekend,
 } from "../utils/commandUtils";
 
-const scheduleEmbed = new EmbedBuilder();
-
 export default {
   data: new SlashCommandBuilder()
     .setName("schedule")
@@ -19,6 +17,8 @@ export default {
       interaction.reply("No upcoming races found.", { ephemeral: true });
       return;
     }
+
+    const scheduleEmbed = new EmbedBuilder();
 
     scheduleEmbed.setTitle(`The ${race.nextRace.summary} full schedule:`);
 

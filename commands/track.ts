@@ -7,8 +7,6 @@ import {
   isSprintWeekend,
 } from "../utils/commandUtils";
 
-const trackEmbed = new EmbedBuilder();
-
 export default {
   data: new SlashCommandBuilder()
     .setName("track")
@@ -62,6 +60,8 @@ export default {
       return;
     }
 
+    const trackEmbed = new EmbedBuilder();
+
     trackEmbed.setTitle(`The ${race.race.summary} full schedule:`);
 
     // casting the events as any as Event[] to satisfy the type checker, we know that it's an array of Event
@@ -69,14 +69,14 @@ export default {
       trackEmbed.setDescription("This is a sprint weekend!");
     }
 
-    for (const event of race.events) {
+    race.events.forEach((event) => {
       trackEmbed.addFields({
         name: `${pickEmoji(event.type)} **${event.type}** ${toDiscordTime(
           event.startTime
         )}`,
         value: "\u200B", // Non-breaking space for empty value
       });
-    }
+    });
 
     trackEmbed.setThumbnail(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
