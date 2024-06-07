@@ -22,7 +22,7 @@ export default {
 
     whenEmbed.addFields({
       // return time like 2 days, 2 hours and 3 minutes
-      name: `🚦 Lights out in ${parsedTime.days} days, ${parsedTime.hours} hours and ${parsedTime.minutes} minutes`,
+      name: `🚦 Lights out in ${parsedTime}`,
       value: "\u200B", // Non-breaking space for empty value
     });
 

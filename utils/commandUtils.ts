@@ -25,10 +25,10 @@ export const isSprintWeekend = (events: Event[]) => {
 
 export const timeDifference = (start: Date, end: Date) => {
   const diff = end.getTime() - start.getTime();
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor(diff / (1000 * 60 * 60)),
-    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-    seconds: Math.floor((diff % (1000 * 60)) / 1000),
-  };
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+  return `${days} days, ${hours} hours and ${minutes} minutes`;
 };
