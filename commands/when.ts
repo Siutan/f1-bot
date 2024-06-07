@@ -18,11 +18,12 @@ export default {
 
     const whenEmbed = new EmbedBuilder();
 
-    whenEmbed.setTitle(`The ${time.nextRace.summary}`);
+    whenEmbed.setTitle(`🕒 The ${time.nextRace.summary}`);
 
     whenEmbed.addFields({
-        name: `🕒 **${parsedTime.hours}hrs ${parsedTime.minutes}mins ${parsedTime.seconds}secs**`,
-        value: "\u200B", // Non-breaking space for empty value
+      // return time like 2 days, 2 hours and 3 minutes
+      name: `🚦 Lights out in ${parsedTime.days} days, ${parsedTime.hours} hours and ${parsedTime.minutes} minutes`,
+      value: "\u200B", // Non-breaking space for empty value
     });
 
     whenEmbed.setThumbnail(
