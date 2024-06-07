@@ -73,6 +73,42 @@ export default {
 
     return { race: races[0], events };
   },
+  getTimeUntilNextRace: async (db: DataSource) => {
+    const currentTime = new Date();
+    const nextEvent = await db.getRepository(Event).findOne({
+      where: {
+        startTime: MoreThan(currentTime),
+      },
+      relations: {
+        race: true,
+      },
+      order: {
+        startTime: "ASC",
+      },
+    });
+
+    if (!nextEvent) {
+      console.log("No upcoming events found.");
+      return null;
+    }
+
+    const events = await db
+      .getRepository(Event)
+      .createQueryBuilder("event")
+      .where("event.raceId = :raceId", { raceId: nextEvent.race.id })
+      .orderBy("event.startTime", "ASC")
+      .getMany();
+      
+      // find event where type is grand prix
+      const grandPrix = events.find((event) => event.type === "Grand Prix");
+      if (!grandPrix) {
+        return null;
+      }
+
+      const grandPrixTime = grandPrix.startTime;
+
+      return { nextRace: nextEvent.race, grandPrixTime };
+  },
   //--------------------------------------------------------------- event queries
   getEvent: async (db: DataSource, id: string) => {
     return await db.manager.findOne(Event, { where: { id } });

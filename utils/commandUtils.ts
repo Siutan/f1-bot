@@ -23,3 +23,11 @@ export const isSprintWeekend = (events: Event[]) => {
   });
 };
 
+export const timeDifference = (start: Date, end: Date) => {
+  const diff = end.getTime() - start.getTime();
+  return {
+    hours: Math.floor(diff / (1000 * 60 * 60)),
+    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((diff % (1000 * 60)) / 1000),
+  };
+};
