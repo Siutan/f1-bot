@@ -2,6 +2,7 @@ import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 import queries from "../db/queries";
 import { db } from "../db/dbInit";
 import { timeDifference } from "../utils/commandUtils";
+import { getConstructorStandings, getDriverStandings } from "../utils/scraper";
 
 export default {
   data: new SlashCommandBuilder()
