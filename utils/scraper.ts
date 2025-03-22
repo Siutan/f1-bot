@@ -6,7 +6,7 @@ interface StandingsData {
 }
 
 export const getDriverStandings = async (): Promise<StandingsData[]> => {
-  const url = "https://www.formula1.com/en/results.html/2024/drivers.html";
+  const url = "https://www.formula1.com/en/results.html/2025/drivers.html";
   const response = await fetch(url);
   const html = await response.text();
   const $ = cheerio.load(html);
@@ -28,7 +28,7 @@ export const getDriverStandings = async (): Promise<StandingsData[]> => {
 };
 
 export const getConstructorStandings = async (): Promise<StandingsData[]> => {
-  const url = "https://www.formula1.com/en/results.html/2024/team.html";
+  const url = "https://www.formula1.com/en/results.html/2025/team.html";
   const response = await fetch(url);
   const html = await response.text();
   const $ = cheerio.load(html);
