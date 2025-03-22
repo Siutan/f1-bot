@@ -3,7 +3,7 @@ import { Race } from "../db/entities/race";
 import { Event } from "../db/entities/event";
 import { db } from "../db/dbInit";
 
-const path = "./F1-2024.ics";
+const path = "./F1-2025.ics";
 const file = Bun.file(path);
 const text = await file.text();
 

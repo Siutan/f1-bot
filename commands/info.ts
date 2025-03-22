@@ -1,10 +1,10 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
 
-const infoEmbed = new EmbedBuilder();
-
 export default {
   data: new SlashCommandBuilder().setName("info").setDescription("Bot info"),
   async execute(interaction: any) {
+    const infoEmbed = new EmbedBuilder();
+
     infoEmbed.setTitle("Bot Info");
     infoEmbed.setDescription(
       "This bot was made by [Siutan](https://github.com/Siutan) and is powered by [Discord.js](https://discord.js.org/)."
@@ -12,7 +12,7 @@ export default {
 
     infoEmbed.addFields({
       name: "👨🏾‍💻 Source Code",
-      value: "https://github.com/Siutan/f1-discord-bot",
+      value: "https://github.com/Siutan/f1-bot",
     });
 
     infoEmbed.addFields({
@@ -45,7 +45,7 @@ export default {
     infoEmbed.setColor("#f50000");
     infoEmbed.setFooter({
       text: "I am in love with Charles Leclerc.",
-    })
+    });
 
     interaction.reply({ embeds: [infoEmbed] });
   },
